@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommended Outfits</title>
+</head>
+<body>
+    <h1>Recommended Outfits for {{ city }}</h1>
+    <p>Current Temperature: {{ temp }}°C</p>
+    <p>Weather Condition: {{ weather_condition }}</p>
+
+
+    <h2>Recommended Fashion Items:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Article Type</th>
+                <th>Base Colour</th>
+                <th>Season</th>
+                <th>Product Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in recommended_items %}
+                <tr>
+                    <td>{{ item.articleType }}</td>
+                    <td>{{ item.baseColour }}</td>
+                    <td>{{ item.season }}</td>
+                    <td>{{ item.productDisplayName }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
