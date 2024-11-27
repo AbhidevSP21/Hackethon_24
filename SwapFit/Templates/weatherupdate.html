@@ -1,0 +1,39 @@
+{% extends 'Base.html' %}
+{% block content %}
+
+
+<form method="POST" action="{% url 'weatherupdate' %}">
+    {% csrf_token %}
+    <label for="city">Enter City: </label>
+    <input type="text" name="city" id="city" required>
+    <button type="submit">Get Recommendations</button>
+</form>
+
+    <h1>Recommended Outfits for {{ city }}</h1>
+    <p>Current Temperature: {{ temp }}°C</p>
+    <p>Weather Condition: {{ weather_condition }}</p>
+
+
+    <h2>Recommended Fashion Items:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Article Type</th>
+                <th>Base Colour</th>
+                <th>Season</th>
+                <th>Product Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in recommended_items %}
+                <tr>
+                    <td>{{ item.articleType }}</td>
+                    <td>{{ item.baseColour }}</td>
+                    <td>{{ item.season }}</td>
+                    <td>{{ item.productDisplayName }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  
+    {% endblock content %}

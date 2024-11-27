@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 import matplotlib.pyplot as plt
-from .models import Customers
+from .models import Customers, uploads
 from django.contrib.auth.decorators import login_required
 
 
@@ -82,4 +82,147 @@ def signin(request):
 def portals(request):
     user_customers = Customers.objects.filter(user=request.user)
     return render(request, 'portals.html', {'user_customers': user_customers})
-    
+
+def uploaditems(request):
+    return render(request, 'uploaditems.html',context={})
+
+def upload(request):
+    if request.method == 'POST' :
+        type  = request.POST.get("type_of_cloth")
+        color= request.POST.get("color")
+        size  = request.POST.get("size")
+        gender= request.POST.get("gender")
+        upload_file = request.FILES.get("upload_file")
+
+        data =  uploads(type_of_cloth=type,
+                                   color=color,
+                                   size=size,
+                                   gender=gender,
+                                   upload_file=upload_file
+                                    )
+        data.save()
+    return redirect('portals')
+
+def getdetails(request):
+    # Fetch all uploaded items
+    data = uploads.objects.filter(userid=request.user)
+
+    # Pass the uploads data to the template
+    context = {
+        'data': data,
+    }
+    return render(request, 'portals.html', context)
+
+def weatherupdate(request):
+    return render(request, 'weatherupdate.html',context={})
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
+from .models import Customers
+from django.contrib.auth.decorators import login_required
+import matplotlib.pyplot as plt
+from django.shortcuts import render
+from pathlib import Path
+from .models import FashionItem
+import os
+import requests
+import pandas as pd
+# BASE_DIR from settings.py
+
+def recommend_outfit(df, temp, weather_condition):
+    recommendations = pd.DataFrame()
+    df = df.dropna(subset=['season', 'articleType'])
+    if temp > 30:
+        current_season = 'Summer'
+    elif 15 < temp <= 30:
+        current_season = 'Spring'
+    elif 5 < temp <= 15:
+        current_season = 'Fall'
+    else:
+        current_season = 'Winter'
+
+
+    # Filter items based on weather conditions
+    if weather_condition.lower() == 'clear':
+        recommendations = df[
+            (df['articleType'].str.contains('T-shirt|Shorts|Dress', case=False)) &
+            (df['season'].str.contains(current_season, case=False)) &
+            (df['masterCategory'] == 'Apparel')
+        ]
+    elif weather_condition.lower() in ['rain', 'stormy']:
+        recommendations = df[
+            (df['articleType'].str.contains('Raincoat|Waterproof|Stormproof|Jacket|Boots', case=False)) &
+            (df['season'].str.contains(current_season, case=False)) &
+            (df['masterCategory'] == 'Apparel')
+        ]
+    if recommendations.empty:
+        recommendations = df[
+            (df['season'].str.contains(current_season, case=False)) &
+            (df['masterCategory'] == 'Apparel')
+        ]
+
+
+    return recommendations[['id', 'articleType', 'baseColour', 'season', 'productDisplayName']]
+
+def recommend(request):
+    city = request.GET.get('city')  # Get the city from the URL query parameters
+    temp, weather_condition = get_weather(city)  # Fetch the weather data
+
+
+    if temp is not None:
+        # Load the fashion items dataset
+        df = pd.read_csv('D:\Django projects\hackathon\Hackethon_24\SwapFit\data\styles.csv')  # Ensure correct file path
+        recommended_items = recommend_outfit(df, temp, weather_condition)  # Get recommended outfits
+        # Pass the weather data and recommended items to the template
+        context = {
+            'city': city,
+            'temp': temp,
+            'weather_condition': weather_condition,
+            'recommended_items': recommended_items.to_dict(orient='records')  # Convert DataFrame to list of dictionaries
+        }
+        return render(request, 'SwapFit/recommendation.html', context)
+    else:
+        return render(request, 'error.html', {'error': 'Failed to fetch weather data.'})
+
+
+# Function to get weather data using OpenWeatherMap API
+def get_weather(city):
+    print("here")
+    api_key = "b5b5fd951335436cb600b2a10b0958d2"
+    url = f"https://api.opencagedata.com/geocode/v1/json?q={city}&key={api_key}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.json()
+        if data['results']:
+            lat = data['results'][0]['geometry']['lat']
+            lon = data['results'][0]['geometry']['lng']
+            weather_url = f"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&current_weather=true"
+            weather_response = requests.get(weather_url)
+            if weather_response.status_code == 200:
+                weather_data = weather_response.json()
+                temp = weather_data['current_weather']['temperature']
+                condition_code = weather_data['current_weather']['weathercode']
+                weather_condition = map_condition_code(condition_code)
+                return temp, weather_condition
+    return None, None
+
+
+# Mapping weather codes to conditions
+def map_condition_code(code):
+    condition_mapping = {
+        0: "clear",
+        1: "cloudy",
+        2: "rainy",
+        3: "stormy",
+    }
+    return condition_mapping.get(code, "unknown")
+
+
+
+
+
+
+

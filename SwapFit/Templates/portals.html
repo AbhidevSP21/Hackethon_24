@@ -93,7 +93,7 @@
                                 <a class="nav-link color-aqua-hover" href="blog-category-03.html">Lifestyle</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="blog-category-04.html">Travel</a>
+                                <a class="nav-link color-green-hover" href="weatherupdate">Travel</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link color-yellow-hover" href="blog-category-05.html"><i class="fa fa-play-circle-o"></i> Vlogs</a>
@@ -102,7 +102,7 @@
                                 <a class="nav-link color-grey-hover" href="blog-category-06.html">Recommendation</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-grey-hover" href="page-skeleton.html">Upload Image's</a>
+                                <a class="nav-link color-grey-hover" href="uploaditems">Upload Image's</a>
                             </li>
                         </ul>
                     </div>
@@ -114,21 +114,27 @@
         <section class="section wb">
             <div class="container">
                 <div class="row">
-                    <div class="custombox authorbox clearfix">
-                        <h4 class="small-title">Your Photos</h4>
-                        <div class="row">
-                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                <img src="{% static 'upload/author.jpg' %}" alt="" class="img-fluid rounded-circle">
+                    <div class="col-md-12">
+                        <h2>Your Photos</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for item in user_customers %}
+                        {% if item.user_id == user.id %}
+                            <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+                                <div class="card">
+                                    <img src="{% static 'upload/author.jpg' %}" class="card-img-top" alt="{{ item.name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ item.name }}</h5>
+                                        <p class="card-text">Type: {{ item.type_of_cloth }}</p>
+                                        <p class="card-text">Color: {{ item.color }}</p>
+                                        <p class="card-text">Size: {{ item.size }}</p>
+                                        <p class="card-text">Gender: {{ item.gender }}</p>
+                                    </div>
+                                </div>
                             </div><!-- end col -->
-                            {% for item in user_customers %}
-                                {% if item.user_id == user.id %}
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4>{{ item.name }}</h4>
-                                    </div><!-- end col -->
-                                {% endif %}
-                            {% endfor %}
-                        </div><!-- end row -->
-                    </div><!-- end authorbox -->
+                        {% endif %}
+                    {% endfor %}
                 </div><!-- end row -->
             </div><!-- end container -->
         </section><!-- end section -->

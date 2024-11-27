@@ -1,0 +1,254 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block extrahead %}
+<!-- Site Icons -->
+<link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
+<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
+
+<!-- Design fonts -->
+<link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,500,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
+
+<!-- Bootstrap core CSS -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+<!-- FontAwesome Icons core CSS -->
+<link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="{% static 'style.css' %}" rel="stylesheet">
+
+<!-- Responsive styles for this template -->
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+
+<!-- Colors for this template -->
+<link href="{% static 'css/colors.css' %}" rel="stylesheet">
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    .containe {
+        height: 100vh;
+        width: 100%;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        background-color: #fcfcfc;
+    }
+
+    .car {
+        border-radius: 10px;
+        box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+        width: 600px;
+        height: 600px;
+        background-color: #ffffff;
+        padding: 10px 30px 40px;
+    }
+
+    .car h3 {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .drop_bo {
+        margin: 10px 0;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        border: 3px dotted #a3a3a3;
+        border-radius: 5px;
+    }
+
+    .drop_bo h4 {
+        font-size: 16px;
+        font-weight: 400;
+        color: #2e2e2e;
+    }
+
+    .drop_bo p {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 12px;
+        color: #a3a3a3;
+    }
+
+    .bt {
+        text-decoration: none;
+        background-color: #005af0;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .bt:hover {
+        text-decoration: none;
+        background-color: #ffffff;
+        color: #005af0;
+        padding: 10px 20px;
+        border: none;
+        outline: 1px solid #010101;
+    }
+
+    .for input {
+        margin: 10px 0;
+        width: 100%;
+        background-color: #e2e2e2;
+        border: none;
+        outline: none;
+        padding: 12px 20px;
+        border-radius: 4px;
+    }
+    .text {
+        margin: 5px;
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .radio {
+        margin: 5px;
+    }
+</style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+{% endblock %}
+
+{% block content %}
+<!-- LOADER -->
+<div id="preloader">
+    <img class="preloader" src="{% static 'images/loader.gif' %}" alt="">
+</div><!-- end loader -->
+<!-- END LOADER -->
+
+<div id="wrapper">
+    <div class="collapse top-search" id="collapseExample">
+    </div><!-- end top-search -->
+
+    <div class="topbar-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 hidden-md-down">
+                    <div class="topmenu text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i> Trends</a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa-solid fa-message"
+                                        style="color: rgb(7, 99, 139);"></i> Write for us</a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa-solid fa-user-pen"
+                                        style="color:rgb(48, 157, 5);"></i> Your Profile</a></li>
+                        </ul><!-- end ul -->
+                    </div><!-- end topmenu -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end topbar -->
+
+    <div class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="logo">
+                        <a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a>
+                    </div><!-- end logo -->
+                </div>
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end header -->
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-toggleable-md">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cloapediamenu"
+                    aria-controls="cloapediamenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link color-pink-hover" href="#">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-pink-hover" href="#">Fashion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-aqua-hover" href="#">Lifestyle</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="#">Travel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-yellow-hover" href="#"><i class="fa fa-play-circle-o"></i> Vlogs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-grey-hover" href="#">Recommendation</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-grey-hover active" href="#">Upload Images</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- end container -->
+    </header>
+    <!-- end header -->
+
+    <div class="containe">
+        <div class="car">
+            <h3>Upload Files</h3>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'upload' %}">
+                {% csrf_token %}
+                <div class="drop_bo">
+                    <label for="id_type_of_cloth">Type Cloth:</label>
+                    <input type="text" name="type_of_cloth", id="type_of_cloth", placeholder="Type Of Cloth" class="text">
+                    <label for="id_color">Color:</label>
+                    <input type="text" name="color", id="color", placeholder="color" class="text">
+                    <label for="id_size">Size:</label>
+                    <input type="text" name="size", id="size", placeholder="Size" class="text">
+                    <div style="display: flex;">
+                        <input type="radio" id="male" name="gender" value="male" class="radio">
+                        <label for="male" style="padding-top: 10px;">Male:</label>
+                        <input type="radio" id="female" name="gender" value="female" class="radio">
+                        <label for="female" style="padding-top: 10px;">Female:</label>
+                    </div>
+                    <header>
+                        <h4>Drag & Drop to Upload File</h4>
+                        <p>or</p>
+                        <input type="file" name="upload_file", id="upload_file", class="fi">
+                    </header>
+                </div>
+                <button type="submit" class="bt" style="padding: 10px;">Upload</button>
+            </form>
+        </div>
+    </div><!-- end wrapper -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+    integrity="sha512-3gJwYpijSa6ar81Db3fDOijA7DJpBoQG40vSOMAT2POftX86nsdtXHGVdMBCfXOjaQ8RxF8r1jwnePwU78RWGQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{% static 'js/tether.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/hoverIntent.js' %}"></script>
+<script src="{% static 'js/superfish.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'js/easy-responsive-tabs.js' %}"></script>
+<script src="{% static 'js/jquery.sticky.js' %}"></script>
+<script src="{% static 'js/jquery.nav.js' %}"></script>
+<script src="{% static 'js/images-loded.min.js' %}"></script>
+<script src="{% static 'js/isotope.min.js' %}"></script>
+<script src="{% static 'js/custom.js' %}"></script>
+
+{% endblock content %}
