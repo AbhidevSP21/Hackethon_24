@@ -1,0 +1,72 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block extrahead %}
+
+
+{% load static %} <!-- Load static for serving static files -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Recommendation</title>
+    {% endblock extrahead %}
+
+    {% block content %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Example of linking a static CSS file -->
+    <style>
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .image-grid img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clothing Recommendation System</h1>
+
+    <label for="color">Select a Color:</label>
+    <select id="color" name="color">
+        <option value="">--Choose a color--</option>
+        {% for color in available_colors %}
+            <option value="{{ color }}">{{ color }}</option>
+        {% endfor %}
+    </select>
+
+    <div id="recommendations" class="image-grid">
+        <!-- Recommended images will be loaded here -->
+    </div>
+
+    <script>
+        document.getElementById('color').addEventListener('change', function() {
+            const color = this.value;
+
+            if (color) {
+                // Make AJAX request to get recommendations
+                fetch(`{% url 'recommend' %}?color=${color}`) <!-- Django URL mapping -->
+                    .then(response => response.json())
+                    .then(data => {
+                        const recommendations = document.getElementById('recommendations');
+                        recommendations.innerHTML = ''; // Clear previous recommendations
+
+                        if (data.images.length === 0) {
+                            recommendations.innerHTML = '<p>No clothing found for this color.</p>';
+                        } else {
+                            data.images.forEach(img => {
+                                const imgElement = document.createElement('img');
+                                imgElement.src = img.img_url;
+                                imgElement.alt = img.clothing_type;
+                                recommendations.appendChild(imgElement);
+                            });
+                        }
+                    });
+            }
+        });
+    </script>
+ {% endblock content %}

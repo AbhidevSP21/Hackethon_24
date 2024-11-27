@@ -11,9 +11,11 @@ urlpatterns=[
     path('uploaditems',views.uploaditems,name="uploaditems"),
     path('upload',views.upload,name="upload"),
     path('getdetails',views.getdetails,name="getdetails"),
-    path('weatherupdate',views.weatherupdate,name="weatherupdate")
-    
+    path('weatherupdate',views.weatherupdate,name="weatherupdate"),
+    path('recommend/', views.get_recommendations, name='get_recommendations')  # AJAX for recommendations
 ]
+    
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

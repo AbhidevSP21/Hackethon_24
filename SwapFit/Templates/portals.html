@@ -1,35 +1,6 @@
 {% extends 'Base.html' %}
-{% load static %}
+{% load static %} <!-- This line is crucial for using the static tag -->
 
-{% block extrahead %}
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png' %}">
-
-    <!-- Design fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,500,700" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,900" rel="stylesheet">
-
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- FontAwesome Icons core CSS -->
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-
-    <!-- Responsive styles for this template -->
-    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
-
-    <!-- Colors for this template -->
-    <link href="{% static 'css/colors.css' %}" rel="stylesheet">
-
-    <!-- External FontAwesome CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
-          integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
-          crossorigin="anonymous" referrerpolicy="no-referrer" />
-{% endblock extrahead %}
 
 {% block content %}
     <!-- LOADER -->
@@ -135,6 +106,13 @@
                             </div><!-- end col -->
                         {% endif %}
                     {% endfor %}
+                </div><!-- end row -->
+
+                <!-- Recommendation Button -->
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="{% url 'get_recommendations' %}" class="btn btn-primary btn-lg mt-4">Go to Recommendations</a>
+                    </div>
                 </div><!-- end row -->
             </div><!-- end container -->
         </section><!-- end section -->
